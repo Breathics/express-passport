@@ -7,7 +7,7 @@ const session = require('express-session');
 const app = express();
 const PORT = 8000;
 
-app.use(logger('dev')); 
+app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
 
