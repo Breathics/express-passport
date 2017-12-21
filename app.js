@@ -1,6 +1,6 @@
 const express = require('express');
-const passport = require('passport');
 const logger = require('morgan');
+const passport = require('passport');
 const session = require('express-session');
 
 
@@ -11,7 +11,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
 
-app.use(session({ secret: 'racecarISracecar' }));
+app.use(session({ secret: 'racecarracecar' }));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
@@ -19,5 +19,5 @@ require('./config/passport')(passport);
 require('./routes/auth.js')(app, passport);
 
 app.listen(PORT, () => {
-  console.log("Yo check it out we're on PORT", PORT);
+	console.log("Yo check it out we're on PORT", PORT);
 });
