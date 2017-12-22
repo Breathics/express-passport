@@ -10,7 +10,7 @@
 	"author": "Andy Ong",
 	"license": "ISC",
 	"dependencies": {
-		"bcrypt": "^1.0.3",
+		"bcrypt-nodejs": "0.0.3",
 		"express": "^4.16.2",
 		"express-session": "^1.15.6",
 		"mysql": "^2.15.0",

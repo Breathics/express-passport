@@ -18,6 +18,15 @@ app.use(passport.session()); // persistent login sessions
 require('./config/passport')(passport);
 require('./routes/auth.js')(app, passport);
 
+
+function errorHandler (err, req, res, next) {
+	if (res.headersSent) {
+	  return next(err);
+	}
+	res.status(500);
+	res.send('Error, something broke!');
+}
+
 app.listen(PORT, () => {
 	console.log("Yo check it out we're on PORT", PORT);
 });

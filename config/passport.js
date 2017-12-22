@@ -2,7 +2,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const localConfig = require('./strategies/local');
 
 const mysql = require('mysql');
-const credentials = require('./database');
+const credentials = require('./database').db;
 const connection = mysql.createConnection(credentials);
 
 function userSearchSQL(email) {
@@ -26,7 +26,7 @@ module.exports = function (passport) {
 		let sql = "SELECT * FROM ?? WHERE ?? = ?";
 		let inserts = ['users', 'id', user.insertId];
 		sql = mysql.format(sql, inserts);
-		
+
 		connection.query(sql, 
 			function (err, results, fields) {
 				done(err, results)
