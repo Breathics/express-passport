@@ -2,7 +2,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const localConfig = require('./strategies/local');
 
 const mysql = require('mysql');
-const credentials = require('./database').db;
+const { credentials, crypt } = require('./database');
 const connection = mysql.createConnection(credentials);
 
 function userSearchSQL(email) {
@@ -13,7 +13,7 @@ function userSearchSQL(email) {
 
 function userCreateSQL(email, password) {
 	let sql = "INSERT INTO ?? (??, ??, ??) VALUES (?, ?, ?)";
-	let inserts = ['users', 'id', 'email', 'password', null, email, password];
+	let inserts = ['users', 'id', 'email', 'password', null, email, crypt.createHash(password)];
 	return mysql.format(sql, inserts);
 }
 
@@ -68,7 +68,7 @@ module.exports = function (passport) {
 
 				if (!results[0]) { return done(null, false); }
 
-				if (!results[0].password) { return done(null, false); }
+				if (!crypt.checkPassword(password, results[0].password)) { return done(null, false); }
 
 				return done(null, results);
 			});
