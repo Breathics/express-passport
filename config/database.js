@@ -11,7 +11,7 @@ module.exports = {
 
 	crypt: {
 		createHash: function(password) {
-			return bcrypt.hashSync(password,  bcrypt.genSaltSync(), null);
+			return bcrypt.hashSync(password,  bcrypt.genSaltSync(10), null);
 		},
 	
 		checkPassword: function(submitPassword, storedPassword) {

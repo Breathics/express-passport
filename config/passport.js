@@ -24,12 +24,12 @@ module.exports = function (passport) {
 
 	passport.deserializeUser(function (user, done) {
 		let sql = "SELECT * FROM ?? WHERE ?? = ?";
-		let inserts = ['users', 'id', user.insertId];
+		let inserts = ['users', 'id', user];
 		sql = mysql.format(sql, inserts);
 
 		connection.query(sql, 
 			function (err, results, fields) {
-				done(err, results)
+				done(err, results[0].id)
 			}
 		);	
 	});
@@ -50,7 +50,7 @@ module.exports = function (passport) {
 						connection.query(sql, function (err, results, fields) {
 							if (err) throw err;
 
-							return done(null, results);
+							return done(null, results.insertId);
 						});
 					}
 
